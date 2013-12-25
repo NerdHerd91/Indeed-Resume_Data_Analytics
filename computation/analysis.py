@@ -20,5 +20,5 @@ class Analysis:
 		resumes = resume_extract.get_resumes()
 		count = 0
 		for resume in resumes:
-			print resume.get_name() + str(count)
+			print resume.name + str(count)
 			count += 1

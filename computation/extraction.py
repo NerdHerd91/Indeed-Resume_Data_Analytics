@@ -6,14 +6,14 @@ from resume import Resume
 class Extraction:
 	
 	def __init__(self, file_path):
-		self.file_path = file_path
-		self.resume_json = self.extract_resumes()
-		self.resumes = self.parse_resumes()
+		self._file_path = file_path
+		self._resume_json = self.__extract_resumes()
+		self._resumes = self.__parse_resumes()
 
-	def extract_resumes(self):
+	def __extract_resumes(self):
 		resume_json = None
 		try:
-			resume_file = open(self.file_path, 'r')
+			resume_file = open(self._file_path, 'r')
 			content = resume_file.read()
 			if content:
 				resume_json = json.loads(content)
@@ -23,18 +23,17 @@ class Extraction:
 			raise
 		return resume_json
 
-	def parse_resumes(self):
+	def __parse_resumes(self):
 		resumes = []
-		print self.resume_json
-		for res in self.resume_json["resumes"]:
-			resume = self.parse_resume(res)
+		for res in self._resume_json["resumes"]:
+			resume = self.__parse_resume(res)
 			resumes.append(resume)
 		return resumes
 
-	def parse_resume(self, resume_data):
+	def __parse_resume(self, resume_data):
 		resume = Resume()
-		resume.set_name("sean")
+		resume.name = "Sean Ventrella"
 		return resume
 
 	def get_resumes(self):
-		return self.resumes
+		return self._resumes
