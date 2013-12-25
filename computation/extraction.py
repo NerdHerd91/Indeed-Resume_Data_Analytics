@@ -2,6 +2,7 @@ import json
 import errno
 
 from resume import Resume
+from resume import Education
 
 class Extraction:
 	
@@ -32,7 +33,16 @@ class Extraction:
 
 	def __parse_resume(self, resume_data):
 		resume = Resume()
-		resume.name = "Sean Ventrella"
+		resume.f_name = resume_data["firstName"].strip()
+		resume.l_name = resume_data["lastName"].strip()
+		for edu in resume_data["educations"]:
+			education = Education()
+			education.degree_type = edu["degree"].strip()
+			education.location = edu["location"].strip()
+			education.major = edu["field"].strip()
+			education.school = edu["school"].strip()
+			education.year = edu["dateRange"]["displayDateRange"].strip()
+			resume.education.append(education)
 		return resume
 
 	def get_resumes(self):

@@ -16,9 +16,8 @@ class Analysis:
 		#plt.show()
 		
 		resume_extract = Extraction("resumes-json.json")
-
 		resumes = resume_extract.get_resumes()
-		count = 0
+		
 		for resume in resumes:
-			print resume.name + str(count)
-			count += 1
+			print resume.f_name + " " + resume.l_name
+			print
