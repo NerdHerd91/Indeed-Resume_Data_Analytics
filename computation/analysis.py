@@ -5,11 +5,10 @@ from extraction import Extraction
 
 class Analysis:
 	
-	def __init__(self, name):
-		self.name = name
+	def __init__(self):
+		pass
 
 	def run(self):
-		#print "We are Running: " + self.name
 		#x = np.array(range(20))
 		#y = 3 + 0.5 * x + np.random.randn(20)
 		#plt.plot(x,y, 'bo')
@@ -20,4 +19,6 @@ class Analysis:
 		
 		for resume in resumes:
 			print resume.f_name + " " + resume.l_name
+			for edu in resume.education:
+				print "Year: " + str(edu.year)
 			print
