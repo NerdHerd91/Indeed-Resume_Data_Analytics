@@ -1,5 +1,6 @@
 import json
 import errno
+import collections
 
 from resume import Resume
 from resume import Education
@@ -17,7 +18,7 @@ class Extraction:
 			resume_file = open(self._file_path, 'r')
 			content = resume_file.read()
 			if content:
-				resume_json = json.loads(content)
+				resume_json = self.__convert(json.loads(content))
 			resume_file.close()
 		except IOError as e:
 			print "I/O error({0}): {1}".format(e.errno, e.strerror)
@@ -63,6 +64,16 @@ class Extraction:
 			#No startDate exists for this date
 			pass
 		return year
+
+	def __convert(self, unicode_data):
+		if isinstance(unicode_data, basestring):
+			return unicode_data.encode('utf-8')
+		elif isinstance(unicode_data, collections.Mapping):
+			return dict(map(self.__convert, unicode_data.iteritems()))
+		elif isinstance(unicode_data, collections.Iterable):
+			return type(unicode_data)(map(self.__convert, unicode_data))
+		else:
+			return unicode_data
 
 	def get_resumes(self):
 		return self._resumes
