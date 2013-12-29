@@ -41,9 +41,28 @@ class Extraction:
 			education.location = edu["location"].strip()
 			education.major = edu["field"].strip()
 			education.school = edu["school"].strip()
-			education.year = edu["dateRange"]["displayDateRange"].strip()
+			education.year = self.__parse_dates(edu["dateRange"])
 			resume.education.append(education)
 		return resume
+	
+	def __parse_dates(self, date_range):
+		year = ""
+		try:	
+			#Retrieve the startDate granularity & displayDate
+			sd_gran = date_range["startDate"]["granularity"]
+			display_date = date_range["startDate"]["displayDate"].strip()
+			
+			#Check the granularity format
+			if(sd_gran == "MONTH"):
+				year = display_date.split()[1]
+			elif(sd_gran == "DAY"):
+				year = display_date.split()[2]
+			else:
+				year = display_date
+		except Exception as e:
+			#No startDate exists for this date
+			pass
+		return year
 
 	def get_resumes(self):
 		return self._resumes
