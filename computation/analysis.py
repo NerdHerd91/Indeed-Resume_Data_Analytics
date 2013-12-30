@@ -5,18 +5,15 @@ from extraction import Extraction
 
 class Analysis:
 	
-	def __init__(self):
-		pass
+	def __init__(self, file_path):
+		self.file_path = file_path
 
 	def run(self):
-		#x = np.array(range(20))
-		#y = 3 + 0.5 * x + np.random.randn(20)
-		#plt.plot(x,y, 'bo')
-		#plt.show()
-		
-		resume_extract = Extraction("resumes-json.json")
+		# Get the resume data
+		resume_extract = Extraction(self.file_path)
 		resumes = resume_extract.get_resumes()
 	
+		# Create the map from years to counts for software_major
 		software_map = {}
 		for resume in resumes:
 			for edu in resume.education:
@@ -25,6 +22,8 @@ class Analysis:
 						software_map[edu.year] += 1
 					except Exception as e:
 						software_map[edu.year] = 1
+
+		# Plot the data in numpy arrays				
 		x = np.empty(shape=(len(software_map.keys()), 1))
 		y = np.empty(shape=(len(software_map.keys()), 1))
 		count = 0

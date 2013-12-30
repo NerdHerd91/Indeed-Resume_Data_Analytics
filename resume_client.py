@@ -1,4 +1,9 @@
+import sys
 from computation.analysis import Analysis
 
-a = Analysis()
-a.run()
+try:
+	file_path = sys.argv[1]
+	a = Analysis(file_path)
+	a.run()
+except Exception as e:
+	print "Invalid file_path was entered."
