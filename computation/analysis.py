@@ -22,10 +22,10 @@ class Analysis:
 						software_map[edu.year] += 1
 					except Exception as e:
 						software_map[edu.year] = 1
-
+		
 		# Plot the data in numpy arrays				
-		x = np.empty(shape=(len(software_map.keys()), 1))
-		y = np.empty(shape=(len(software_map.keys()), 1))
+		x = np.empty(len(software_map.keys()))
+		y = np.empty(len(software_map.keys()))
 		count = 0
 		for key in software_map.keys():
 			x[count] = key
