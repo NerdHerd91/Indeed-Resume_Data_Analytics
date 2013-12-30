@@ -7,3 +7,4 @@ try:
 	a.run()
 except Exception as e:
 	print "Invalid file_path was entered."
+	print e
