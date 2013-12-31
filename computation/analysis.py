@@ -28,7 +28,12 @@ class Analysis:
 			y[count] = degree_map[key]
 			max_y = max(max_y, degree_map[key])
 			count += 1
-		plt.plot(x,y, 'bo')
+		
+		#Linear Regression
+		fit = np.polyfit(x,y,1)
+		fit_fn = np.poly1d(fit)
+		
+		plt.plot(x,y, 'bo', x, fit_fn(x), '--k')
 		plt.ylim(0, max_y + 1)
 		plt.title("Computer Degrees")
 		plt.xlabel("Year")
